@@ -8,4 +8,6 @@
 7-file -  creates a file named exactly \*\\'"Best School"\'\\*$\?\*\*\*\*\*:) containing the text Best School ending by a new line.
 8-cwd_state - writes into the file ls_cwd_content the result of the command ls -la. If the file ls_cwd_content already exists, it is overwritten. If the file ls_cwd_content does not exist, it is created.
 12-newest_files - displays the 10 newest files in the current directory
-14-findthatword - displays lines containing the pattern “root” from the file /etc/passwd.
+13-unique - takes a list of words as input and prints only words that appear exactly once.
+14-findthatword - displays lines containing the pattern “root” from the file /etc/passwd
+18-letteronly - displays all lines of the file /etc/ssh/sshd_config starting with a letter..
