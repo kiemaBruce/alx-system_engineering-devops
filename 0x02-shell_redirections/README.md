@@ -13,4 +13,5 @@
 15-countthatword - displays the number of lines that contain the pattern “bin” in the file /etc/passwd
 17-hidethisword - displays all the lines in the file /etc/passwd that do not contain the pattern “bin”.
 18-letteronly - displays all lines of the file /etc/ssh/sshd_config starting with a letter..
+20-hiago - removes all letters c and C from input.
 21-reverse - reverses its input.
