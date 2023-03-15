@@ -9,4 +9,4 @@
 10-love_exponent_breath - displays the result of BREATH to the power LOVE followed by a new line; where BREATH and LOVE are environment variables.
 11-binary_to_decimal - converts a number $BINARY from base 2 to base 10 and then displays a new line after displaying the base 10 number.
 12-combinations -  prints all possible combinations of two letters, with the following conditions: letters are lower cases from a to z, one combination per line,the output is alpha ordered starting with aa, oo is not printed, the script contains a maximum of 64 characters.
-  
+13-print_float - prints a number with two decimal places, followed by a new line.
