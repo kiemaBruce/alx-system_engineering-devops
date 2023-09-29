@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Displays a message for numbers 1 to 20 with different messages for 4th, 9th
+# and 17th iterations.
+count=1
+while [ "$count" -lt 21 ]
+do
+	case $count in
+		4)
+			echo "$count"
+			echo "bad luck from China"
+			;;
+		9)
+			echo "$count"
+			echo "bad luck from Japan"
+			;;
+		17)
+			echo "$count"
+			echo "bad luck from Italy"
+			;;
+		*)
+			echo "$count"
+			;;
+	esac
+	((count++))
+done
