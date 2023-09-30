@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Prints a string indefinitely. The SIGTERM signal cannot stop it because it is
+# intercepted and handled.
+while true
+do
+	trap 'echo "I am invincible!!!"' SIGTERM
+	echo "To infinity and beyond"
+	sleep 2
+done
