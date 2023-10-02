@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 # Fizz buzz implementation.
-# Displays numbers from 0 to 100.
-# Displays FizzBuzz when a number is a multiple of both 3 and 5.
-# Displays Fizz if a number when a multiple of 3.
-# Displays Buzz when the number is a multiple of 5.
-count=0
+count=1
 while [ "$count" -lt 101 ]
 do
 	mod3=$((count%3))
