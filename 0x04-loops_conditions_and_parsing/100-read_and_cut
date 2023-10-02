@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
 # Displays the username, user id and Home directory path for users; from the
 # /etc/passwd file.
-cut -d ':' -f 1,3,6 < /etc/passwd
+position=1
+lines=$(wc -l < /etc/passwd )
+while [ "$position" -le "$lines" ]
+do
+	sed "${position}p;d" /etc/passwd | cut -d ':' -f 1,3,6
+	((position++))
+done
