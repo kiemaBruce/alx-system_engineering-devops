@@ -5,29 +5,9 @@
 # and whether it is a regular file or not.
 if [ -e school ]
 then
-#	echo "school file exists"
-#	if [ -f school ]
-#	then
-#		length=$(cat school | wc -c)
-#		if [ "$length" -eq 0 ]
-#		then
-#			echo "school file is empty"
-#		else
-#			echo "school file is not empty"
-#		fi
-#		echo "school is a regular file"
-#	else
-#		length=$(ls -1 school/ | wc -l)
-#		if [ $length -eq 0 ]
-#		then
-#			echo "school file is empty"
-#		else
-#			echo "school file is not empty"
-#		fi
-#	fi
-
 	if [ -d school ]
 	then
+		echo "school file exists"
 #		length=$(find ./school/ -maxdepth 1 -mindepth 1 -type f -o -type d -o -type b -o -type c -o -type p -o -type l | wc -l)
 #		if [ "$length" -eq 0 ]
 #		then
@@ -35,7 +15,6 @@ then
 #		else
 #			echo "school file is not empty"
 #		fi
-		echo "school file does not exist"
 	else
 		echo "school file exists"
 		length=$(stat -c %s school)
