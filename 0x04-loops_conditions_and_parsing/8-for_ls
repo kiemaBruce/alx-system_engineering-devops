@@ -2,4 +2,5 @@
 # Displays current directory contents.
 # The contents are displayed in a list format with one item per line.
 # Only the part of the name after the first dash is displayed.
+# shellcheck disable=SC2012
 ls -1 | cut -d '-' -f 1 --complement
