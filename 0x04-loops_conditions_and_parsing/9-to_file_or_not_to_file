@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# Displays information about the 'school file'
+# Whether it exists or not.
+# If it exists, more information is displayed on whether it is empty
+# and whether it is a regular file or not.
+if [ -e school ]
+then
+	echo "school file exists"
+#	if [ -f school ]
+#	then
+#		length=$(cat school | wc -c)
+#		if [ "$length" -eq 0 ]
+#		then
+#			echo "school file is empty"
+#		else
+#			echo "school file is not empty"
+#		fi
+#		echo "school is a regular file"
+#	else
+#		length=$(ls -1 school/ | wc -l)
+#		if [ $length -eq 0 ]
+#		then
+#			echo "school file is empty"
+#		else
+#			echo "school file is not empty"
+#		fi
+#	fi
+
+	if [ -d school ]
+	then
+		length=$(find ./school/ -maxdepth 1 -mindepth 1 -type f -o -type d -o -type b -o -type c -o -type p -o -type l | wc -l)
+		if [ "$length" -eq 0 ]
+		then
+			echo "school file is empty"
+		else
+			echo "school file is not empty"
+		fi
+	else
+		length=$(stat -c %s school)
+		if [ "$length" -eq 0 ]
+		then
+			echo "school file is empty"
+		else
+			echo "school file is not empty"
+		fi
+		if [ -f school ]
+		then
+			echo "school is a regular file"
+		fi
+	fi
+else
+	echo "school file does not exist"
+fi
