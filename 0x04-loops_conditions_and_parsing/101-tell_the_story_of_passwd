@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Writes a story based on the /etc/passwd file.
+# shellcheck disable=SC2162
+lines=$(wc -l < /etc/passwd)
+position=1
+IFS=:
+while [ "$position" -le "$lines" ]
+do
+	line=$(sed "${position}p;d" /etc/passwd)
+	read -a fields <<< "$line"
+echo "The user ${fields[0]} is part of the ${fields[2]} gang, lives in\
+ ${fields[5]} and rides ${fields[6]}. ${fields[2]}'s place is protected by\
+the passcode ${fields[1]}, more info about the user here: ${fields[4]}"
+	((position++))
+done
+IFS=" \n\t"
