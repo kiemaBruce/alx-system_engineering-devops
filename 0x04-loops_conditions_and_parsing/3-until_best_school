@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-# Displays 'Best School' 10 times using until loop.
-count=10
-until [ "$count" = 0 ]
-do
-	echo "Best School"
-	((count--))
-done
