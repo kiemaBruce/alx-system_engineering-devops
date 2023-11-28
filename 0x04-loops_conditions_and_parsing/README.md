@@ -50,3 +50,10 @@ and then Hi on a new line.
 	- Displays Buzz when the number is a multiple of 5
 	- Otherwise, displays the number
 	- In a list format.
+### 100-read_and_cut
+- Displays the content of the file /etc/passwd.
+- The script only displays:
+	- username
+	- user id
+	- Home directory path for the user
+- Uses the while loop.
