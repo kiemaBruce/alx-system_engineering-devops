@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#Displays a string 10 times using until loop.
+counter=9
+until [ "$counter" -lt 0 ]
+do
+	echo "Best School"
+	((counter-=1))
+done
