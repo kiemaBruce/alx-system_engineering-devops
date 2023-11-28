@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Prints a string 10 times using while loop.
+counter=9
+while [ "$counter" -ge 0 ]
+do
+	echo "Best School"
+	((counter-=1))
+done
