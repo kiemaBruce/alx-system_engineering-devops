@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Displays fizz buzz for nummbers 0 to 100
+counter=1
+while [ "$counter" -le 100 ]
+do
+	rem_3=$((counter%3))
+	rem_5=$((counter%5))
+	if [ "$rem_3" -eq 0 ] && [ "$rem_5" -eq 0 ]
+	then
+		echo "FizzBuzz"
+	elif [ "$rem_3" -eq 0 ] && [ "$rem_5" -ne 0 ]
+	then
+		echo "Fizz"
+	elif [ "$rem_3" -ne 0 ] && [ "$rem_5" -eq 0 ]
+	then
+		echo "Buzz"
+	else
+		echo "$counter"
+	fi
+	((counter+=1))
+done
