@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#Displays a string 10 times but a different one for 9th iteration.
+counter=9
+while [ "$counter" -ge 0 ]
+do
+	echo "Best School"
+	if [ "$counter" -eq 1 ]
+	then
+		echo "Hi"
+	fi
+	((counter-=1))
+done
