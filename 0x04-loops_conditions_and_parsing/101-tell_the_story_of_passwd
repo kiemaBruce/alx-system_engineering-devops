@@ -2,12 +2,12 @@
 # Makes up a story using the /etc/passwd file
 while IFS= read -r line
 do
-	username=$(echo "$line" | cut -d ':' -f 1)
-	group_id=$(echo "$line" | cut -d ':' -f 4)
-	home_directory=$(echo "$line" | cut -d ':' -f 6)
-	login_shell=$(echo "$line" | cut -d ':' -f 7)
-	user_id=$(echo "$line" | cut -d ':' -f 3)
-	password=$(echo "$line" | cut -d ':' -f 2)
-	user_id_info=$(echo "$line" | cut -d ':' -f 5 | cut -d ',' -f 1)
+	username=$(echo -n "$line" | cut -d ':' -f 1)
+	group_id=$(echo -n "$line" | cut -d ':' -f 4)
+	home_directory=$(echo -n "$line" | cut -d ':' -f 6)
+	login_shell=$(echo -n "$line" | cut -d ':' -f 7)
+	user_id=$(echo -n "$line" | cut -d ':' -f 3)
+	password=$(echo -n "$line" | cut -d ':' -f 2)
+	user_id_info=$(echo -n "$line" | cut -d ':' -f 5 | cut -d ',' -f 1)
 	echo "The user $username is part of the $group_id gang, lives in $home_directory and rides $login_shell. $user_id's place is protected by the passcode $password, more info about the user here: $user_id_info"
 done < /etc/passwd
