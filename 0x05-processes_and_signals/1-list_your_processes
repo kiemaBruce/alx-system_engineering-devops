@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Lists all running processes including those not associated with a TTY
+ps auxf
