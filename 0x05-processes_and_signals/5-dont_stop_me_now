@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Stops 4-to_infinity_and_beyond process.
+my_pid=$(pgrep -a -u vagrant | grep "4-to_infinity_and_beyond" | grep -v "grep" | cut -d ' ' -f1)
+kill "$my_pid"
