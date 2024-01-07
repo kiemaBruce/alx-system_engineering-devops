@@ -1,2 +1,1 @@
-### 0-simply_match_school.rb
-- Matches 'School' using regex.
+This project contains various regex matching patterns.
