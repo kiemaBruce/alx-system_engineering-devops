@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-# Displays all active IPv4 IPs on the machine it's executed on.
-result=$(ifconfig | grep -Eo 'inet [0-9.]+' | grep -Eo '[.0-9]+')
-echo "$result"
