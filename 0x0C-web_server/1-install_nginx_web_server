@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Installs nginx web server
+sudo apt-get update
+sudo apt install -y nginx
+sudo systemctl status nginx
+#if [ "$?" -ne 0 ]
+#if sudo systemctl is-active --quiet nginx
+if sudo systemctl status nginx
+then
+        if sudo service nginx restart
+	then
+		echo "Unable to start nginx"
+		exit 1
+	fi
+fi
+#if [ "$?" -ne 0 ]
+#if sudo service nginx restart
+#then
+#        echo "Unable to start nginx"
+#        exit 1
+#fi
+echo "Hello World!" | sudo tee /var/www/html/index.html
+nginx_config=$(cat <<EOL
+server {
+    listen 80;
+    listen [::]:80;
+
+    root /var/www/html;
+    index index.html;
+
+    server_name _;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+EOL
+)
+echo "$nginx_config" | sudo tee /etc/nginx/sites-available/mywebsite
+sudo nginx -s reload
+sudo ln -s /etc/nginx/sites-available/mywebsite /etc/nginx/sites-enabled/
