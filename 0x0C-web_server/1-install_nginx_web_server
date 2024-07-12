@@ -16,38 +16,7 @@ if sudo ufw status | grep -q "Status: active"
 then
 	sudo ufw allow 'Nginx HTTP'
 fi
-# create new root directory for my localhost server block
-sudo mkdir -p /var/www/localhost/html
-# reassign ownership to this user to enable writing without needing sudo
-sudo chown "$USER":"$USER" /var/www/localhost/html
-# confirm web roots permissions
-sudo chmod -R 755 /var/www
-index_content=$(cat <<EOL
-<html>
-  Hello World!
-</html>
-EOL
-)
-echo "$index_content" > /var/www/localhost/html/index.html
-nginx_config=$(cat <<EOL
-server {
-    listen 80;
-    listen [::]:80;
-
-    root /var/www/localhost/html;
-    index index.html;
-
-    server_name localhost;
-
-    location / {
-        try_files \$uri \$uri/ =404;
-    }
-}
-EOL
-)
-echo "$nginx_config" | sudo tee /etc/nginx/sites-available/localhost
-# create symbolic link to enable newly created server block
-sudo ln -s /etc/nginx/sites-available/localhost /etc/nginx/sites-enabled/
+echo "Hello World!" | sudo tee /var/www/html/index.html
 #check for any errors with nginx config files
 if sudo nginx -t
 then
