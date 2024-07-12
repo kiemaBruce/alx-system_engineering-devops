@@ -22,7 +22,13 @@ sudo mkdir -p /var/www/localhost/html
 sudo chown "$USER":"$USER" /var/www/localhost/html
 # confirm web roots permissions
 sudo chmod -R 755 /var/www
-echo "Hello World!" > /var/www/localhost/html/index.html
+index_content=$(cat <<EOL
+<html>
+  Hello World!
+</html>
+EOL
+)
+echo "$index_content" > /var/www/localhost/html/index.html
 nginx_config=$(cat <<EOL
 server {
     listen 80;
