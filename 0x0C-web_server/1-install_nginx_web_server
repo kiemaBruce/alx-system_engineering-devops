@@ -2,40 +2,51 @@
 # Installs nginx web server
 sudo apt-get update
 sudo apt install -y nginx
-sudo systemctl status nginx
-#if [ "$?" -ne 0 ]
-#if sudo systemctl is-active --quiet nginx
-if sudo systemctl status nginx
+# check if nginx is active, restart if not
+if ! sudo systemctl is-active --quiet nginx
 then
-        if sudo service nginx restart
+        if ! sudo service nginx restart
 	then
 		echo "Unable to start nginx"
 		exit 1
 	fi
 fi
-#if [ "$?" -ne 0 ]
-#if sudo service nginx restart
-#then
-#        echo "Unable to start nginx"
-#        exit 1
-#fi
-echo "Hello World!" | sudo tee /var/www/html/index.html
+# enable 'Nginx HTTP' through ufw if it is active
+if sudo ufw status | grep -q "Status: active"
+then
+	sudo ufw allow 'Nginx HTTP'
+fi
+# create new root directory for my localhost server block
+sudo mkdir -p /var/www/localhost/html
+# reassign ownership to this user to enable writing without needing sudo
+sudo chown "$USER":"$USER" /var/www/localhost/html
+# confirm web roots permissions
+sudo chmod -R 755 /var/www
+echo "Hello World!" > /var/www/localhost/html/index.html
 nginx_config=$(cat <<EOL
 server {
     listen 80;
     listen [::]:80;
 
-    root /var/www/html;
+    root /var/www/localhost/html;
     index index.html;
 
-    server_name _;
+    server_name localhost;
 
     location / {
-        try_files $uri $uri/ =404;
+        try_files \$uri \$uri/ =404;
     }
 }
 EOL
 )
-echo "$nginx_config" | sudo tee /etc/nginx/sites-available/mywebsite
-sudo nginx -s reload
-sudo ln -s /etc/nginx/sites-available/mywebsite /etc/nginx/sites-enabled/
+echo "$nginx_config" | sudo tee /etc/nginx/sites-available/localhost
+# create symbolic link to enable newly created server block
+sudo ln -s /etc/nginx/sites-available/localhost /etc/nginx/sites-enabled/
+#check for any errors with nginx config files
+if sudo nginx -t
+then
+	# reload nginx
+	sudo nginx -s reload
+else
+	echo "Error with nginx config files"
+fi
