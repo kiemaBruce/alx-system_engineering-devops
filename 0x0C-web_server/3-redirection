@@ -17,7 +17,7 @@ then
 	sudo ufw allow 'Nginx HTTP'
 fi
 # Create index file, write to it
-echo "Hello World!" | sudo tee /var/www/html/index.html
+#echo "Hello World!" | sudo tee /var/www/html/index.html
 rep_str=$(cat <<EOL
 	server_name _;
 
