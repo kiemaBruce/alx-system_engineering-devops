@@ -16,19 +16,8 @@ if sudo ufw status | grep -q "Status: active"
 then
 	sudo ufw allow 'Nginx HTTP'
 fi
-#echo "Hello World!" | sudo tee /var/www/html/index.html
-#Edit config file for redirection purposes
-#redir_conf=$(cat <<EOL
-#	server_name _;
-
-#	location /redirect_me {
-#		return 301 https://www.youtube.com/watch\?v=QH2-TGUlwu4;
-#   }
-#EOL
-#)
-#escaped_redir_conf=$(printf '%s\n' "$redir_conf" | sed 's/[&/\]/\\&/g')
-#sudo sed -i "s/\tserver_name _;/$redir_conf/" /etc/nginx/sites-available/default
-#sudo sed -i "s|\tserver_name _;|${escaped_redir_conf}|" /etc/nginx/sites-available/default
+# Create index file, write to it
+echo "Hello World!" | sudo tee /var/www/html/index.html
 rep_str=$(cat <<EOL
 	server_name _;
 
@@ -38,8 +27,8 @@ rep_str=$(cat <<EOL
 EOL
 )
 echo "$rep_str" > temp_file
-#awk '/\tserver_name _;/{system("cat temp_file");next}1' /etc/nginx/sites-available/default > output_file
 awk '/\tserver_name _;/ && !found {system("cat temp_file"); found=1; next} 1' /etc/nginx/sites-available/default > output_file
+sudo rm temp_file
 sudo mv output_file /etc/nginx/sites-available/default
 #check for any errors with nginx config files
 if sudo nginx -t
