@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Includes a redirection in site configuration
 rep_str=$(cat <<EOL
 	server_name _;
 
