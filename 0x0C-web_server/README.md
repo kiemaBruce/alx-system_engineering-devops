@@ -22,3 +22,7 @@ returns a page that contains the string Hello World!
 - Additionaly, it configures your Nginx server so that /redirect_me is
   redirecting to another page.
 - The redirection is a "301 Moved Permanently”.
+### 4-not_found_page_404
+- Configures your Nginx server to have a custom 404 page that contains the string
+  Ceci n'est pas une page
+- The page returns an HTTP 404 error code
