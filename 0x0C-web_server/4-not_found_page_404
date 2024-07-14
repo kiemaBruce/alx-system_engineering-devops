@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# Installs nginx web server and creates a custom 404 error page
+sudo apt-get update
+sudo apt install -y nginx
+# check if nginx is active, restart if not
+if ! sudo systemctl is-active --quiet nginx
+then
+        if ! sudo service nginx restart
+	then
+		echo "Unable to start nginx"
+		exit 1
+	fi
+fi
+# enable 'Nginx HTTP' through ufw if it is active
+if sudo ufw status | grep -q "Status: active"
+then
+	sudo ufw allow 'Nginx HTTP'
+fi
+# Create index file, write to it
+#echo "Hello World!" | sudo tee /var/www/html/index.html
+# Create error page
+#error_html=$(cat <<EOL
+#	<!DOCTYPE html>
+#	<html>
+#		Ceci n'est pas une page
+#	</html>
+#EOL
+#)
+#echo "$error_html" | sudo tee /var/www/html/404.html
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
+rep_str=$(cat <<EOL
+	server_name _;
+
+	error_page 404 /404.html;
+	location = /404.html {
+		internal;
+	}
+EOL
+)
+echo "$rep_str" > temp_file
+awk '/\tserver_name _;/ && !found {system("cat temp_file"); found=1; next} 1' /etc/nginx/sites-available/default > output_file
+sudo rm temp_file
+sudo mv output_file /etc/nginx/sites-available/default
+#check for any errors with nginx config files
+if sudo nginx -t
+then
+	# reload nginx
+	sudo nginx -s reload
+else
+	echo "Error with nginx config files"
+fi
