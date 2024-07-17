@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#Gets Apache server up and running so that it displays a custom index page
+#First install the Apache2 software
+sudo apt-get update
+sudo apt-get install apache2
+# Next set it to listen to port 8080
+sudo sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf
+# Create custom index.html page
+echo "Hello Holberton" | sudo tee /var/www/html/index.html
+#Restart apache2
+sudo systemctl restart apache2
