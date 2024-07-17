@@ -2,7 +2,7 @@
 #Gets Apache server up and running so that it displays a custom index page
 #First install the Apache2 software
 apt-get update
-apt-get install apache2
+apt-get install -y apache2
 # Next set it to listen to port 8080
 sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf
 # Create custom index.html page
