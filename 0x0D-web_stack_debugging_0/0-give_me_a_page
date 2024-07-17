@@ -6,8 +6,11 @@ apt-get install -y apache2
 # Install dbus
 apt-get update && apt-get install -y dbus
 # Next set it to listen to port 8080
-sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf
+sed -i 's/Listen 80$/Listen 8080/' /etc/apache2/ports.conf
+# Set the ServerName global directive
+echo 'ServerName localhost' >> /etc/apache2/apache2.conf
 # Create custom index.html page
-echo "Hello Holberton" | tee /var/www/html/index.html
+echo "Hello Holberton" > /var/www/html/index.html
 #Restart apache2
-systemctl restart apache2
+#systemctl restart apache2
+apachectl restart
