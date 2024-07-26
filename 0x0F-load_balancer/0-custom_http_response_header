@@ -1,8 +1,23 @@
 #!/usr/bin/env bash
 # Configures Nginx so that all HTTP responses have a custom header that
 # indicates the hostname
+sudo apt-get update
+sudo apt install -y nginx
+# check if nginx is active, restart if not
+if ! sudo systemctl is-active --quiet nginx
+then
+        if ! sudo service nginx restart
+        then
+                echo "Unable to start nginx"
+                exit 1
+        fi
+fi
+# enable 'Nginx HTTP' through ufw if it is active
+if sudo ufw status | grep -q "Status: active"
+then
+        sudo ufw allow 'Nginx HTTP'
+fi
 my_hostname=$(hostname)
-
 rep_str=$(cat <<EOL
 	server_name _;
 
