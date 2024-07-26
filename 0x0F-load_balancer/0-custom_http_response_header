@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Configures Nginx so that all HTTP responses have a custom header that
+# indicates the hostname
+my_hostname=$(hostname)
+
+rep_str=$(cat <<EOL
+	server_name _;
+
+	add_header X-Served-By "$my_hostname"; 
+EOL
+)
+echo "$rep_str" > temp_file
+awk '/\tserver_name _;/ && !found {system("cat temp_file"); found=1; next} 1' /etc/nginx/sites-available/default > output_file
+sudo rm temp_file
+sudo mv output_file /etc/nginx/sites-available/default
+#check for any errors with nginx config files
+if sudo nginx -t
+then
+        # reload nginx
+        sudo nginx -s reload
+else
+        echo "Error with nginx config files"
+fi
