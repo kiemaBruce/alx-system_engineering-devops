@@ -2,7 +2,7 @@
 # Configures Nginx so that all HTTP responses have a custom header that
 # indicates the hostname
 sudo apt-get update
-sudo apt-get install nginx
+sudo apt-get install -y nginx
 my_hostname=$(hostname)
 rep_str=$(cat <<EOL
 	server_name _;
@@ -20,7 +20,7 @@ then
         # reload nginx
         #sudo nginx -s reload
 	# restart nginx
-	sudo service restart nginx
+	sudo service nginx restart
 else
         echo "Error with nginx config files"
 fi
