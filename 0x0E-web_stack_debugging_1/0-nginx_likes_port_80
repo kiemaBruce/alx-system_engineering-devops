@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Ensures Nginx server is running on a webserver
+# First ensure that it is installed
+sudo apt-get update
+sudo apt-get install -y nginx
+# Install dbus
+apt-get update && apt-get install -y dbus
+# Next, for each server block, ensure that it is listening on port 80
+# Ensure that the default server block isn't already listening on that port
+grep "listen 80 " /etc/nginx/sites-available/default
+rep_str=$(cat <<EOL
+server {
+        listen 80
+EOL
+)
+if ! grep "listen 80 " /etc/nginx/sites-available/default
+then
+	# if not found, insert it
+	echo "$rep_str" > temp_file
+	awk '/server {/ && !found {system("cat temp_file"); found=1; next} 1' /etc/nginx/sites-available/default > output_file
+	sudo rm temp_file
+	sudo mv output_file /etc/nginx/sites-available/default
+fi
+#check for any errors with nginx config files
+if sudo nginx -t
+then
+        # start nginx
+	sudo service nginx start
+else
+        echo "Error with nginx config files"
+fi
