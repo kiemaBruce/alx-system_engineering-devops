@@ -18,7 +18,9 @@ sudo mv output_file /etc/nginx/sites-available/default
 if sudo nginx -t
 then
         # reload nginx
-        sudo nginx -s reload
+        #sudo nginx -s reload
+	# restart nginx
+	sudo service restart nginx
 else
         echo "Error with nginx config files"
 fi
