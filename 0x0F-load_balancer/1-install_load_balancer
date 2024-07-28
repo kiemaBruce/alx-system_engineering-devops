@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # Installs HAProxy and configures it to act as a proxy to 2 backend servers.
-sudo apt-get install --no-install-recommends software-properties-common -y
-sudo add-apt-repository -y ppa:vbernat/haproxy-2.8
-sudo apt-get install -y haproxy=2.8.\*
+sudo  apt-get -y update
+sudo apt-get -y install haproxy
 rep_str=$(cat <<EOL
 	errorfile 504 /etc/haproxy/errors/504.http
 
