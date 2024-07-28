@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Configures Nginx so that all HTTP responses have a custom header that
 # indicates the hostname
+sudo apt-get update
+sudo apt-get install nginx
 my_hostname=$(hostname)
 rep_str=$(cat <<EOL
 	server_name _;
