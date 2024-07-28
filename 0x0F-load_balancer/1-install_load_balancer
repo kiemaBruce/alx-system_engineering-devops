@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Installs HAProxy and configures it to act as a proxy to 2 backend servers.
+sudo apt-get update
+sudo apt-get install -y haproxy
+rep_str=$(cat <<EOL
+	errorfile 504 /etc/haproxy/errors/504.http
+
+frontend http_front
+	bind *:80
+	default_backend http_back
+
+backend http_back
+	balance roundrobin
+	server server1 54.234.93.82:80 check
+	server server2 52.91.150.83:80 check
+EOL
+)
+echo "$rep_str" > temp_file
+awk '/\terrorfile 504 \/etc\/haproxy\/errors\/504\.http/ && !found {system("cat temp_file"); found=1; next} 1' /etc/haproxy/haproxy.cfg > output_file
+sudo rm temp_file
+sudo mv output_file /etc/haproxy/haproxy.cfg
+# check config file for syntax errors:
+if sudo haproxy -c -f /etc/haproxy/haproxy.cfg | grep -q "Configuration file is valid"
+then
+	:
+else
+	echo "Configuration file is not valid"
+fi
+# Restart HAProxy
+sudo systemctl restart haproxy
