@@ -5,3 +5,5 @@
   script displays information about four specific subdomains (www, lb-01,
   web-01, web-02). If both the domain and the subdomain is provided then the
   script displays information about that specific subdomain of that domain.
+### 1-haproxy_ssl_termination
+- Contains haproxy config file.
