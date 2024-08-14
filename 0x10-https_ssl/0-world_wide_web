@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Displays information about a subdomain of a domain if the subdomain is
+# provided as $2. If only the domain is provided then the script displays
+# info about three specific subdomains.
+if [ $# -lt 1 ]
+then
+	exit 1
+fi
+domain="$1"
+my_function () {
+	# Pass in the domain and subdomain as $1 and $2 respectively
+	local full_sub
+	full_sub="$2.$1"
+	local record_type
+	record_type=$(dig "$full_sub" | grep -A1 "ANSWER SECTION:" |  tail -n 1 | awk '{print $4}')
+	local IP_addr
+	IP_addr=$(dig "$full_sub" | grep -A1 "ANSWER SECTION:" |  tail -n 1 | awk '{print $5}')
+	echo "The subdomain $2 is a $record_type record and points to $IP_addr"
+}
+if [ $# -gt 1 ]
+then
+	subdomain="$2"
+	my_function "$domain" "$subdomain"
+elif [ $# -eq 1 ]
+then
+	my_function "$domain" "www"
+	my_function "$domain" "lb-01"
+	my_function "$domain" "web-01"
+	my_function "$domain" "web-02"
+fi
