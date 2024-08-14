@@ -35,7 +35,17 @@ defaults
 
 frontend http_front
         bind *:80
-        bind *:443 ssl crt /etc/letsencrypt/live/messierpros.tech/fullchain.pem key /etc/letsencrypt/live/messierpros.tech/privkey.pem
+        mode http # Sets the mode to HTTP e.g. for understanding and interpreting http headers, etc.
+        option httplog # http logging
+        option forwardfor #  Adds an X-Forwarded-For header to incomming request, containing client's original IP address.
+        default_backend http_back
+
+frontend https_front
+        bind *:443 ssl crt /etc/haproxy/ssl/messierpros.tech.pem
+        mode http
+        option httplog
+        option forwardfor
+        http-request add-header X-Forwarded-Proto https
         default_backend http_back
 
 backend http_back
