@@ -7,3 +7,6 @@
   script displays information about that specific subdomain of that domain.
 ### 1-haproxy_ssl_termination
 - Contains haproxy config file.
+### 100-redirect_http_to_https
+- haproxy config file that configures haproxy to redirect http traffic to https
+  with a 301 return code (permanent redirect)
