@@ -26,11 +26,13 @@ if __name__ == "__main__":
         user_info_dict = json.loads(decoded_body)
         username = user_info_dict.get('username')
     with open(file_name, mode='w', newline='') as file:
-        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
+        writer = csv.writer(file, quoting=csv.QUOTE_ALL, dialect="unix")
+        csv_data_rows = []
         for task in tasks_list:
-            csv_data_list = []
-            csv_data_list.append(user_id)
-            csv_data_list.append(username)
-            csv_data_list.append(task.get('completed'))
-            csv_data_list.append(task.get('title'))
-            writer.writerow(csv_data_list)
+            csv_data_row = []
+            csv_data_row.append(user_id)
+            csv_data_row.append(username)
+            csv_data_row.append(task.get('completed'))
+            csv_data_row.append(task.get('title'))
+            csv_data_rows.append(csv_data_row)
+        writer.writerows(csv_data_rows)
