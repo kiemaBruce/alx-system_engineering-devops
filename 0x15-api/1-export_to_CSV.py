@@ -26,7 +26,7 @@ if __name__ == "__main__":
         user_info_dict = json.loads(decoded_body)
         username = user_info_dict.get('username')
     with open(file_name, mode='w', newline='') as file:
-        writer = csv.writer(file, quoting=csv.QUOTE_ALL, dialect="unix")
+        writer = csv.writer(file, dialect="unix")
         csv_data_rows = []
         for task in tasks_list:
             csv_data_row = []
